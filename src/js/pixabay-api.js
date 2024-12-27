@@ -4,7 +4,7 @@ import { renderGallery, resetGalelry } from './render-functions';
 import { loaderShow, loaderHide } from './loader';
 
 const key = '29951838-c03d41fde620325ff539c52c5';
-const baseURL = 'https://pixabay.com/api?';
+const baseURL = 'https://pixabay.com/api/?';
 
 function fetchImage(query) {
   return new Promise((resolve, reject) => {

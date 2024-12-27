@@ -7,7 +7,7 @@ const searchForm = document.querySelector('form');
 
 searchForm.addEventListener('submit', event => {
   event.preventDefault();
-  const searchValue = event.target.search.value;
+  const searchValue = event.target.search.value.trim();
   if (!searchValue)
     return iziToast.warning({
       position: 'topRight',
