@@ -20,6 +20,7 @@ const paginationConfig = {
 
 async function fetchImage(query) {
   if (query) {
+    paginationConfig.page = 1;
     resetGalelry();
     loaderShow();
   }
