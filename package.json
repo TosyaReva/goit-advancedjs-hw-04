@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/goit-advancedjs-hw-03/",
+    "build": "vite build --base=/goit-advancedjs-hw-04/",
     "preview": "vite preview"
   },
   "devDependencies": {
@@ -17,6 +17,7 @@
   "author": "Tamara Reva <tosyan93@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.7.9",
     "izitoast": "^1.4.0",
     "simplelightbox": "^2.14.3",
     "vite-plugin-full-reload": "^1.2.0",

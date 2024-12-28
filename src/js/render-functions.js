@@ -10,7 +10,6 @@ const lightBox = new SimpleLightbox('.gallery .gallery-item a', {
 window.qwerty = lightBox;
 function renderGallery(data) {
   let markup = '';
-  let x = '';
   data.hits.forEach(item => {
     markup += `
         <li class="gallery-item">
@@ -38,8 +37,8 @@ function renderGallery(data) {
         </li>
         `;
   });
-  gallery.innerHTML = markup + '<li class="gallery-item">';
-  //   gallery.innerHTML = `<ul>${markup}</ul>`;
+  gallery.insertAdjacentHTML('beforeend', markup);
+
   lightBox.refresh();
 }
 function resetGalelry() {

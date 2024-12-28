@@ -4,6 +4,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 import fetchImage from './js/pixabay-api';
 
 const searchForm = document.querySelector('form');
+const loadMore = document.querySelector('.load-more');
 
 searchForm.addEventListener('submit', event => {
   event.preventDefault();
@@ -14,4 +15,8 @@ searchForm.addEventListener('submit', event => {
       message: 'Please fill-in the search input',
     });
   fetchImage(searchValue);
+});
+
+loadMore.addEventListener('click', event => {
+  fetchImage();
 });

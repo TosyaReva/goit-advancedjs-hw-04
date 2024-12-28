@@ -28,7 +28,7 @@ p {
   margin-bottom: 24px;
 }
 
-.form button,
+.btn,
 .form input {
   border: 0;
   outline: 0;
@@ -54,7 +54,7 @@ p {
   box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #fff;
 }
 
-.form button {
+.btn {
   color: #61677c;
   font-weight: bold;
   box-shadow: -5px -5px 20px #fff, 5px 5px 20px #babecc;
@@ -62,16 +62,16 @@ p {
   cursor: pointer;
   font-weight: 600;
 }
-.form button:hover {
+.btn:hover {
   box-shadow: -2px -2px 5px #fff, 2px 2px 5px #babecc;
 }
-.form button:active {
+.btn:active {
   box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #fff;
 }
-.form button .icon {
+.btn .icon {
   margin-right: 8px;
 }
-.form button.unit {
+.btn.unit {
   border-radius: 8px;
   line-height: 0;
   width: 48px;
@@ -82,10 +82,10 @@ p {
   margin: 0 8px;
   font-size: 19.2px;
 }
-.form button.unit .icon {
+.btn.unit .icon {
   margin-right: 0;
 }
-.form button[type='submit'] {
+.btn[type='submit'] {
   display: block;
   width: 100%;
   color: #ae1100;

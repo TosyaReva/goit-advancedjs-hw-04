@@ -11,10 +11,13 @@
     <main>
       <form class="form">
         <input type="text" name="search" />
-        <button type="submit">Search</button>
+        <button type="submit" class="btn">Search</button>
       </form>
-      <div class="loader" hidden></div>
       <ul class="gallery"></ul>
+      <div class="pagination">
+        <button type="button" class="load-more btn" hidden>Load More</button>
+        <div class="loader" hidden></div>
+      </div>
     </main>
     <script type="module" src="./main.js" defer></script>
   </body>

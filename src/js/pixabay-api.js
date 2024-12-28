@@ -1,50 +1,77 @@
 import iziToast from 'izitoast';
+import axios from 'axios';
 
 import { renderGallery, resetGalelry } from './render-functions';
 import { loaderShow, loaderHide } from './loader';
+import { showLoadMore, btnMoreHide } from './btn-show-more';
 
-const key = '29951838-c03d41fde620325ff539c52c5';
-const baseURL = 'https://pixabay.com/api/?';
+const instance = axios.create({
+  baseURL: 'https://pixabay.com/api/',
+  timeout: 1000,
+  params: { key: '29951838-c03d41fde620325ff539c52c5' },
+});
 
-function fetchImage(query) {
-  return new Promise((resolve, reject) => {
+const paginationConfig = {
+  page: 1,
+  total: null,
+  query: '',
+  per_page: 15,
+};
+
+async function fetchImage(query) {
+  if (query) {
     resetGalelry();
     loaderShow();
+  }
+  btnMoreHide();
 
-    const searchParams = new URLSearchParams({
-      key,
-      image_type: 'photo',
-      orientation: 'horizontal',
-      safesearch: true,
-      q: query || '',
-    }).toString();
+  const searchParams = {
+    image_type: 'photo',
+    orientation: 'horizontal',
+    safesearch: true,
+    q: query || paginationConfig.query,
+    per_page: paginationConfig.per_page,
+    page: paginationConfig.page,
+  };
 
-    fetch(baseURL + searchParams, {
-      method: 'GET',
-    })
-      .then(resolve)
-      .catch(reject);
-  })
-    .then(response => {
-      if (response.status !== 200 || !response.ok)
-        throw new Error(response.status);
-
-      return response.json();
-    })
-    .then(data => {
-      if (data.totalHits === 0) throw new Error('Empty response');
-      renderGallery(data);
-    })
-    .catch(error => {
-      iziToast.warning({
-        position: 'topRight',
-        message:
-          'Sorry, there are no images matching your search query. Please try again!',
-      });
-    })
-    .finally(() => {
-      loaderHide();
+  try {
+    const response = await instance.request({
+      params: searchParams,
     });
+
+    paginationConfig.total = response.data.total;
+    paginationConfig.page += 1;
+    if (query) paginationConfig.query = query;
+
+    if (response.status !== 200) throw new Error(response.status);
+
+    const data = response.data;
+    if (data.totalHits === 0) throw new Error('Empty response');
+
+    renderGallery(data);
+  } catch (error) {
+    iziToast.warning({
+      position: 'topRight',
+      message:
+        'Sorry, there are no images matching your search query. Please try again!',
+    });
+  }
+
+  loaderHide();
+  const endOfCollection = showLoadMore(paginationConfig);
+  if (!query) scrollDown();
+  if (!query && endOfCollection)
+    iziToast.success({
+      position: 'topRight',
+      message: "We're sorry, but you've reached the end of search results.",
+    });
+}
+
+function scrollDown() {
+  const { height } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
+  window.scrollBy({ top: height, behavior: 'smooth' });
 }
 
 export default fetchImage;
