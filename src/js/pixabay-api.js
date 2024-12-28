@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { renderGallery, resetGalelry } from './render-functions';
 import { loaderShow, loaderHide } from './loader';
-import { showLoadMore, btnMoreHide } from './btn-show-more';
+import { showLoadMore, btnMoreHide, isbtnMoreHidden } from './btn-show-more';
 
 const instance = axios.create({
   baseURL: 'https://pixabay.com/api/',
@@ -59,9 +59,10 @@ async function fetchImage(query) {
   }
 
   loaderHide();
-  const endOfCollection = showLoadMore(paginationConfig);
+  showLoadMore(paginationConfig);
+
   if (!query) scrollDown();
-  if (!query && endOfCollection)
+  if (!query && isbtnMoreHidden())
     iziToast.success({
       position: 'topRight',
       message: "We're sorry, but you've reached the end of search results.",
